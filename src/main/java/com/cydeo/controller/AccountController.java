@@ -7,9 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Controller
 public class AccountController {
@@ -47,6 +49,16 @@ public class AccountController {
     public String createAccount(@ModelAttribute("account") Account account){
 
         accountService.createNewAccount(account.getBalance(),new Date(),account.getAccountType(),account.getUserId());
+
+        return "redirect:/index";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String getDeleteAccount(@PathVariable("id")UUID id){
+
+        // find the account change the status to DELETED
+
+        System.out.println(id);
 
         return "redirect:/index";
     }
