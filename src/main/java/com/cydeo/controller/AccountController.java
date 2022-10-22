@@ -57,6 +57,7 @@ public class AccountController {
     public String getDeleteAccount(@PathVariable("id")UUID id){
 
         // find the account change the status to DELETED
+        accountService.deleteAccount(id);
 
         System.out.println(id);
 
