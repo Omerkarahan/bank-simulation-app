@@ -9,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Date;
+import java.util.UUID;
 
 @AllArgsConstructor
 @Controller
@@ -47,6 +49,20 @@ public class TransactionController {
         transactionService.makeTransfer(sender,receiver,transaction.getAmount(),new Date(),transaction.getMessage());
 
         return "redirect:/make-transfer";
+    }
+
+//    write a method, that gets the id from index.html and print on the console
+    //(work on index.html and here
+
+    @GetMapping("/transaction/{id}")
+    public String getTransactionList(@PathVariable("id") UUID id,Model model){
+
+        System.out.println(id);
+        //get the list of transactions based on id and return as a model attribute
+        model.addAttribute("transactions",transactionService.findTransactionListByID(id));
+
+        return "transaction/transactions";
+
     }
     }
 
